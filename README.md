@@ -1,7 +1,7 @@
 # my_flutter_app
 
 A new Flutter project.
-<video src="https://drive.google.com/file/d/13lcQRZv--mS5Xn7O0baVkHPz2SIKnx3F/view?usp=sharing" width="300" />
+<video src="https://drive.google.com/file/d/13lcQRZv--mS5Xn7O0baVkHPz2SIKnx3F/view" width="300" />
 
 ## Getting Started
 
