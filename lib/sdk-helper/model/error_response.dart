@@ -64,8 +64,7 @@ class ErrorResponse {
           errorType: 'not_found_error',
           errorCode: 'TRIDE0004',
           message: 'Not Found',
-          description:
-              'The URL requested is invalid or the resource requested does not exist.',
+          description: 'The resource could not be found.',
         );
       case 405:
         return ErrorResponse(

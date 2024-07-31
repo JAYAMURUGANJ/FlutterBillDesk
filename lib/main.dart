@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'pages/goPay.dart';
+import 'sqlite-helper/db_helper.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final dbHelper = DatabaseHelper.instance;
+
+  if (!await dbHelper.databaseExists('orders.db')) {
+    final db = await dbHelper.database;
+    await dbHelper.createTable(db);
+  }
   runApp(const MyApp());
 }
 

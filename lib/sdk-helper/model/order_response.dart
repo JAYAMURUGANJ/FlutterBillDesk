@@ -86,9 +86,6 @@ class AdditionalInfo {
   String? additionalInfo5;
   String? additionalInfo6;
   String? additionalInfo7;
-  String? additionalInfo8;
-  String? additionalInfo9;
-  String? additionalInfo10;
 
   AdditionalInfo(
       {this.additionalInfo1,
@@ -97,10 +94,7 @@ class AdditionalInfo {
       this.additionalInfo4,
       this.additionalInfo5,
       this.additionalInfo6,
-      this.additionalInfo7,
-      this.additionalInfo8,
-      this.additionalInfo9,
-      this.additionalInfo10});
+      this.additionalInfo7});
 
   AdditionalInfo.fromJson(Map<String, dynamic> json) {
     additionalInfo1 = json['additional_info1'];
@@ -110,9 +104,6 @@ class AdditionalInfo {
     additionalInfo5 = json['additional_info5'];
     additionalInfo6 = json['additional_info6'];
     additionalInfo7 = json['additional_info7'];
-    additionalInfo8 = json['additional_info8'];
-    additionalInfo9 = json['additional_info9'];
-    additionalInfo10 = json['additional_info10'];
   }
 
   Map<String, dynamic> toJson() {
@@ -137,15 +128,6 @@ class AdditionalInfo {
     }
     if (additionalInfo7 != null) {
       data['additional_info7'] = additionalInfo7;
-    }
-    if (additionalInfo8 != null) {
-      data['additional_info8'] = additionalInfo8;
-    }
-    if (additionalInfo9 != null) {
-      data['additional_info9'] = additionalInfo9;
-    }
-    if (additionalInfo10 != null) {
-      data['additional_info10'] = additionalInfo10;
     }
 
     return data;

@@ -9,6 +9,7 @@ import '/sdk-helper/model/error_response.dart';
 import '/sdk-helper/model/order_response.dart';
 import '/utils/extension.dart';
 import '/utils/jwt/jwt_helper.dart';
+import 'txn_history.dart';
 import 'widget/progress_indicator.dart';
 
 class GoPay extends StatefulWidget {
@@ -63,109 +64,112 @@ class _GoPayState extends State<GoPay> {
       timeStamp = now.toFormattedString();
       orderDate = now.formatISOTime();
     });
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset("assets/img/billdesk_logo.png"),
+    return PopScope(
+      canPop: isPayEnabled,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/img/billdesk_logo.png"),
+          ),
+          title: const Text("BillDesk Payment"),
+          actions: [
+            IconButton(
+                onPressed: () => Get.to(const TxnHistory()),
+                icon: const Icon(
+                  Icons.history,
+                  size: 30,
+                ))
+          ],
         ),
-        title: const Text("BillDesk Payment"),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.history,
-                size: 30,
-              ))
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.grey,
-                  child: Icon(
-                    Icons.storefront,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Paying to BillDesk",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  autofocus: true,
-                  controller: _amountController,
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: '0',
-                    hintStyle: TextStyle(
-                      color: Colors.black,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.grey,
+                    child: Icon(
+                      Icons.storefront,
+                      color: Colors.white,
+                      size: 50,
                     ),
-                    // Optional: customize hint text style
-                    border: InputBorder.none,
-                    alignLabelWithHint:
-                        false, // This ensures the hint is centered
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 0), // Remove additional space
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      _amountController.text != '0'
-                          ? isPayEnabled = value.isNotEmpty
-                          : null;
-                      _formatAmount(value);
-                    });
-                  },
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-              ],
-            ),
-            (!isPayEnabled &&
-                    _amountController.text.isNotEmpty &&
-                    _amountController.text != '0')
-                ? const CustomProgressIndicator()
-                : const SizedBox.shrink(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 300,
-                height: 40,
-                child: MaterialButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(color: Colors.grey),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Paying to BillDesk",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  elevation: 0,
-                  color: Theme.of(context).colorScheme.primary,
-                  // textColor: Colors.white,
-                  disabledColor: Colors.grey,
-                  //  disabledTextColor: Colors.blueGrey,
-                  onPressed: isPayEnabled ? processPayment : null,
-                  child: Text(
-                    "PAY \u20B9 ${_amountController.text}",
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  const SizedBox(height: 20),
+                  TextField(
+                    autofocus: true,
+                    controller: _amountController,
+                    textAlign: TextAlign.center,
+                    textAlignVertical: TextAlignVertical.center,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      hintText: '0',
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      // Optional: customize hint text style
+                      border: InputBorder.none,
+                      alignLabelWithHint:
+                          false, // This ensures the hint is centered
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: 0), // Remove additional space
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _amountController.text != '0'
+                            ? isPayEnabled = value.isNotEmpty
+                            : null;
+                        _formatAmount(value);
+                      });
+                    },
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                ],
+              ),
+              (!isPayEnabled &&
+                      _amountController.text.isNotEmpty &&
+                      _amountController.text != '0')
+                  ? const CustomProgressIndicator()
+                  : const SizedBox.shrink(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 300,
+                  height: 40,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(color: Colors.grey),
+                    ),
+                    elevation: 0,
+                    color: Theme.of(context).colorScheme.primary,
+                    // textColor: Colors.white,
+                    disabledColor: Colors.grey,
+                    //  disabledTextColor: Colors.blueGrey,
+                    onPressed: isPayEnabled ? processPayment : null,
+                    child: Text(
+                      "PAY \u20B9 ${_amountController.text}",
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

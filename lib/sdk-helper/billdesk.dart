@@ -4,10 +4,10 @@ import 'package:billDeskSDK/sdk.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/constant.dart';
 import '/pages/payment_status.dart';
 import '/sdk-helper/model/order_response.dart';
 import '/sdk-helper/model/retrieve_txn_request.dart';
-import '../utils/constant.dart';
 import '/utils/jwt/jwt_helper.dart';
 import 'model/order_request.dart';
 
@@ -67,7 +67,7 @@ class BillDesk {
     };
     //Create order request
     Response response = await dio.request(
-      orderCreationtUrl!,
+      orderCreationtUrl,
       options: Options(
         method: 'POST',
         headers: headers,
@@ -108,7 +108,7 @@ class BillDesk {
   Future<Response> retrieveTransaction(String orderId) async {
     RetrieveTxnRequest payload =
         RetrieveTxnRequest(mercid: mercid, orderid: orderId);
-    debugPrint("Payload: $payload");
+    debugPrint("Payload: ${payload.toJson()}");
     String body =
         await jwtHelper.encode(jwtHeader.toString(), json.encode(payload));
     debugPrint("Encoded-payload: $body");
@@ -120,7 +120,7 @@ class BillDesk {
     };
     //Create order request
     Response response = await dio.request(
-      retrieveTransactionUrl!,
+      retrieveTransactionUrl,
       options: Options(
         method: 'POST',
         headers: headers,

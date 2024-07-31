@@ -53,7 +53,7 @@ class JwtHelper {
 
   /// Generates the signature for the JWT token
   static String _generateSignature(String header, String payload) {
-    var key = utf8.encode(secret!);
+    var key = utf8.encode(secret);
     var bytes = utf8.encode('$header.$payload');
 
     var hmac = Hmac(sha256, key);
