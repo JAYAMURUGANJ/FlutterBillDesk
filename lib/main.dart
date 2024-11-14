@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'pages/goPay.dart';
+import 'pages/start_txn.dart';
 import 'sqlite-helper/db_helper.dart';
 
 Future<void> main() async {
@@ -26,10 +26,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            primary: Colors.deepOrangeAccent, seedColor: Colors.orange),
+          primary: Colors.deepOrangeAccent,
+          seedColor: Colors.orange,
+        ),
         useMaterial3: true,
       ),
-      home: const GoPay(),
+      home: const StartTxn(),
     );
   }
 }

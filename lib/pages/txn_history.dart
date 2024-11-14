@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../sqlite-helper/db_helper.dart';
 import '../sqlite-helper/model/order.dart';
-import 'payment_status.dart';
+import 'check_txn.dart';
 
 class TxnHistory extends StatefulWidget {
   const TxnHistory({super.key});
@@ -50,7 +50,7 @@ class _TxnHistoryState extends State<TxnHistory> {
                 final order = orders[index];
                 return ListTile(
                   style: ListTileStyle.drawer,
-                  onTap: () => Get.to(PaymentResultPage(
+                  onTap: () => Get.to(CheckTxnDetails(
                     txnInfo: TxnInfo(txnInfoMap: order.toMap()),
                   )),
                   dense: true,

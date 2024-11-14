@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allows cleartext (HTTP) traffic for specific domains -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">https://hrce.tn.gov.in/</domain>
+    </domain-config>
+
+    <!-- Allows all cleartext traffic (not recommended for production) -->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

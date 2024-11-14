@@ -69,3 +69,20 @@ double convertToDouble(String amount) {
   // Round to two decimal places
   return double.parse(parsedAmount.toStringAsFixed(2));
 }
+
+extension AmountFormatter on String? {
+  /// Cleans and formats the string amount, allowing only numeric and decimal values.
+  /// Returns the formatted amount as a string with two decimal places.
+  String formatAsCurrency() {
+    if (this == null || this!.isEmpty) {
+      return '0.00';
+    }
+
+    // Remove any characters that are not digits or decimal points
+    String cleanAmount = this!.replaceAll(RegExp(r'[^\d.]'), '');
+
+    // Parse the cleaned amount to a double and format it to two decimal places
+    double decimalAmount = double.tryParse(cleanAmount) ?? 0.0;
+    return decimalAmount.toStringAsFixed(2);
+  }
+}
