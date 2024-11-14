@@ -16,3 +16,10 @@ dependencies:
     sdk: flutter
   billDeskSDK:
     path: ./billDeskSDK
+```
+## Step 2: Run the project
+
+After adding the dependency, run the following command to start the project:
+
+```bash
+flutter run
